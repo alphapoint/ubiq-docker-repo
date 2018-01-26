@@ -23,8 +23,14 @@ COPY --from=builder /go/go-ubiq/build/bin/gubiq /usr/local/bin/
 # Create directory to store chain data
 RUN mkdir -p /usr/share/gubiq/
 
+# Copy entrypoint
+COPY ./entrypoint.sh /usr/local/bin/
+
+# Add execution perms
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
 # Expose ports
-EXPOSE 8588 8588
+EXPOSE 8588
 
 # Entry
-ENTRYPOINT ["./entrypoint.sh"]
+ENTRYPOINT ["entrypoint.sh"]
