@@ -4,7 +4,8 @@ FROM golang:1.9-alpine as builder
 # Install basic dependencies
 RUN apk update
 RUN apk add --no-cache wget
-RUN wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://raw.githubusercontent.com/sgerrand/alpine-pkg-glibc/master/sgerrand.rsa.pub
+RUN wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub
+
 
 # Add glibc dependency as previous to 1.6 Geth (from we fork) needs it in order to compile and work properly
 RUN wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.25-r0/glibc-2.25-r0.apk

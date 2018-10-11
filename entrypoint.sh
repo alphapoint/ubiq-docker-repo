@@ -1,3 +1,3 @@
 #!/bin/sh -e
 
-gubiq --datadir /usr/share/gubiq/ --rpc --rpcaddr 0.0.0.0
+gubiq --datadir /usr/share/gubiq/ --rpcapi personal,web3,eth,net,admin  --rpc --rpcaddr 0.0.0.0  --rpcport 8588  
