@@ -6,14 +6,18 @@ RUN apk update
 RUN apk add --no-cache wget
 RUN wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub
 
-
 # Add glibc dependency as previous to 1.6 Geth (from we fork) needs it in order to compile and work properly
 RUN wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.25-r0/glibc-2.25-r0.apk
 RUN apk add --no-cache make gcc musl-dev linux-headers git glibc-2.25-r0.apk
 
 # Fetch Gubiq source and build it
-RUN git clone https://github.com/ubiq/go-ubiq go-ubiq/
-RUN cd go-ubiq && make gubiq
+
+RUN git clone https://github.com/ubiq/go-ubiq go-ubiq/ && \
+cd go-ubiq && \
+git fetch --tags && \
+latestTag=$(git describe --tags `git rev-list --tags --max-count=1`) && \
+git checkout $latestTag && \
+make ./gubiq
 
 # Pull Gubiq into another container
 FROM alpine:latest
